@@ -72,7 +72,7 @@ class BasketballDatabase:
             id_row = MVPIdentificationRow(row)
 
             winners.append({"slug": id_row.slug, "name": id_row.name, "season": id_row.season_end})
-        with open("mvp_winners.csv", "w") as mvp_file:
+        with open("data/mvp_winners.csv", "w") as mvp_file:
             df = pd.DataFrame(winners)
             df.to_csv(mvp_file, index=False)
 
@@ -91,13 +91,13 @@ class BasketballDatabase:
     def create_player_totals_csv(year_start, year_end, advanced=False):
         for i in range(year_start, year_end + 1):
             if advanced:
-                if not os.path.exists("adv_total_stats"):
-                    os.makedirs("adv_total_stats")
+                if not os.path.exists("data/adv_total_stats"):
+                    os.makedirs("data/adv_total_stats")
                 client.players_advanced_season_totals(season_end_year=i, output_type=OutputType.CSV,
                                                       output_file_path="adv_total_stats/stats_{}.csv".format(i))
             else:
-                if not os.path.exists("total_stats"):
-                    os.makedirs("total_stats")
+                if not os.path.exists("data/total_stats"):
+                    os.makedirs("data/total_stats")
                 client.players_season_totals(season_end_year=i, output_type=OutputType.CSV,
                                              output_file_path="total_stats/stats_{}.csv".format(i))
             # self.feed_season_stats_to_db(stats, i)
